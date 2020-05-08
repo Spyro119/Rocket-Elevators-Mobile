@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'package:rocketelevatorsapp/repository/Elevators_repository.dart';
+
 class ElevatorsResponse {
   int id;
   String buildingType;
@@ -37,4 +40,8 @@ class ElevatorsResponse {
     data['column_id'] = this.columnId;
     return data;
   }
+
+
 }
+
+

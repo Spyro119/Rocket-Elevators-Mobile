@@ -9,55 +9,69 @@ import 'dart:async';
 class Elevators extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return new FutureBuilder(
+    return new Scaffold(
+        appBar: AppBar(
+            title: Text('Elevators'),
+            actions: <Widget>[
+              IconButton(
+                  icon: Icon(Icons.home),
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/');
+                  }
+              )
+            ]
+        ),
+      body : FutureBuilder(
       future: getElevators(),
-      initialData: "Loading Elevators...",
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.hasError)
-          return Center(child: Text("Error : ${snapshot.error}"));
-        while (!snapshot.hasData ){
-          print(snapshot.hasData);
-          return Center(child: Text(" Waiting to fetch elevators"));
-        }
+          return Scaffold(
+              body: Center(child: Text("Error : ${snapshot.error}")));
         if (snapshot.hasData) {
           print('Data found. ${snapshot.hasData}');
+          print('Snpashot data : ${snapshot.data.runtimeType}');
+//          return CircularProgressIndicator();
+          print(snapshot.data);
+//          List<ElevatorsResponse> elevators = new List<ElevatorsResponse>(snapshot.data);
           return elevatorList(context, snapshot.data);
         } else {
           print('no data found. $snapshot and ${snapshot.hasData}');
-          return CircularProgressIndicator();
+          return loadingScreen(context);
         }
-      });
+      })
+    );
   }
 }
 
-Future<dynamic> getElevators() async {
+Future<List<ElevatorsResponse>> getElevators() async {
   print('triggered');
   dynamic elevator = new ElevatorsRepository();
   List<ElevatorsResponse> elevators = await elevator.fetchElevators();
-  print('elevators Type : ${elevators.runtimeType}, can call ID? ${elevators.first.id}');
+//  print('elevators Type : ${elevators.runtimeType}, can call ID? ${elevators.first.id}');
   return elevators;
 }
 
-Widget elevatorList(BuildContext context, elevators) {
+Widget elevatorList(BuildContext context, List<ElevatorsResponse> elevators) {
+  print('ElevatorList: ${elevators.runtimeType}');
   return Scaffold(
-    appBar: AppBar(
-        title: Text('Elevators'),
-        actions: <Widget>[
-          IconButton(
-              icon: Icon(Icons.home),
-              onPressed: () {
-                Navigator.pushNamed(context, '/');
-              }
-          )
-        ]
-    ),
     body:
-        Wrap(
+    new Center(
+      child: new Wrap(
+        children: [
+        new Container(
+          child: Text(
+        'there are currently ${elevators.length} inactive elevators.\n '
+            'Swipe up and press any elevator\'s button. '
+      ),
+    ),
+      new Wrap(
             direction: Axis.horizontal,
             alignment: WrapAlignment.end,
             spacing: 10.0,
             children: _buildButtonsWithNames(context, elevators)
         )
+    ]),
+  ),
   );
 }
 
@@ -120,12 +134,7 @@ List<Widget> _buildButtonsWithNames(context, elevators) {
                                   print(elevator.elevatorStatus);
                                   ElevatorsRepository repo = new ElevatorsRepository();
                                   repo.putElevators(elevator);
-//                              ElevatorsResponse newElevators = await getElevators();
-//                              elevatorList(context, newElevators);
                                 Navigator.push(context, new MaterialPageRoute(builder: (context) => new Elevators()));
-//                                  .then((value) {
-//                              setState(() {
-//                              color = color == Colors.white ? Colors.grey : Colors.white;
                             },
                             label: Text(
                               elevators[i].elevatorStatus == 'active' ?
@@ -142,9 +151,9 @@ List<Widget> _buildButtonsWithNames(context, elevators) {
                             ),
                           ),
                         Container(
-                          padding: EdgeInsets.all(50.0),
+                          padding: EdgeInsets.all(5.0),
                           alignment: Alignment.bottomCenter,
-                            height: 350,
+                            height: 340,
                             child: new Image.asset(
                               "assets/elevator.png",
 //                              width: 150,
@@ -164,4 +173,14 @@ List<Widget> _buildButtonsWithNames(context, elevators) {
     )
     );}
   return buttonsList;
+}
+
+Widget loadingScreen(context) {
+  return Scaffold(
+      body: Center(
+                child: CircularProgressIndicator(
+                ),
+      ),
+  );
+
 }

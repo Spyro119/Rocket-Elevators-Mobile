@@ -7,9 +7,9 @@ class ElevatorsRepository {
 
   Future<List<ElevatorsResponse>> fetchElevators() async {
     final response = await _provider.get("elevators/inactiveelevators");
-    List<ElevatorsResponse> Elevators;
-    Elevators = await response.map<ElevatorsResponse>((json) => ElevatorsResponse.fromJson(json)).toList();
-    return Elevators;
+    List<ElevatorsResponse> elevators;
+    elevators = await response.map<ElevatorsResponse>((json) => ElevatorsResponse.fromJson(json)).toList();
+    return elevators;
   }
 
 
