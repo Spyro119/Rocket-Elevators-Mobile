@@ -8,17 +8,15 @@ import 'package:rocketelevatorsapp/views/Alert.dart';
 void main() => runApp(MyApp());
 bool isSignedin = false;
 
-
+// Fetching Employees from API and looking if user input matches
+// Employee's database model informations in order to access next pages.
 Future<bool> getinfos() async{
   print('email : ' + email + ' password : ' + name  );
   dynamic employee = new EmployeesRepository();
   List<EmployeeResponse> Employees = await employee.fetchEmployees();
-  print('Length of list : ' + Employees.length.toString());
   int EmployeesLength = Employees.length;
-  print(EmployeesLength);
   for(var i = 0; i< EmployeesLength; i++){
     if (email.toString() == Employees[i].email && name == Employees[i].firstname){
-      print('hi');
       isSignedin = true;
       break;
     }
@@ -26,6 +24,7 @@ Future<bool> getinfos() async{
       isSignedin = false;
     }
   }
+  return isSignedin;
 }
 
 class MyApp extends StatelessWidget {
@@ -71,7 +70,6 @@ String email = " ";
 String name = "";
 
 class _MyHomePageState extends State<MyHomePage> {
-  bool _load = false;
   TextStyle style = TextStyle(fontFamily: 'Montserrat', fontSize: 20.0);
 
   @override

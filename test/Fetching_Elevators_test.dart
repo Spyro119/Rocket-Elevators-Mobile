@@ -1,6 +1,14 @@
-import 'package:rocketelevatorsapp/models/ElevatorResponse.dart';
+import 'package:rocketelevatorsapp/models/elevatorResponse.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'dart:io';
+import 'package:rocketelevatorsapp/repository/elevators_repository.dart';
+
+ElevatorsResponse elevators = new ElevatorsResponse(
+    id: 1,
+    elevatorSerialNumber: 550010719,
+    elevatorModel: "Premium",
+    elevatorStatus: "Active",
+    elevatorInformation: "old",
+    columnId: 1 );
 
 void main() {
   group('Testing Json decoding', () {
@@ -78,6 +86,20 @@ void main() {
       List<ElevatorsResponse> Elevators;
       Elevators = F.map<ElevatorsResponse>((json) => ElevatorsResponse.fromJson(json)).toList();
       expect(Elevators[1].id, isA<int>());
+    });
+  });
+  group('testing Object to Json translation', () {
+    test('shoud return a Json string', (){
+      dynamic Elevators = elevators.toJson();
+      print(Elevators);
+      expect(Elevators, isA<Map<String, dynamic>>());
+    });
+  });
+  group('Testing Put connection', (){
+    test('Should return 204', () {
+      ElevatorsRepository repo = new ElevatorsRepository();
+      dynamic res = repo.putElevators(elevators);
+      expect(res, isA<dynamic>());
     });
   });
 }
