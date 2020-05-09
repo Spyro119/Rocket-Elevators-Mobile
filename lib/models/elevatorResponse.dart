@@ -12,12 +12,12 @@ class ElevatorsResponse {
 
   ElevatorsResponse(
       {this.id,
-        this.buildingType,
-        this.elevatorSerialNumber,
-        this.elevatorModel,
-        this.elevatorStatus,
-        this.elevatorInformation,
-        this.columnId});
+      this.buildingType,
+      this.elevatorSerialNumber,
+      this.elevatorModel,
+      this.elevatorStatus,
+      this.elevatorInformation,
+      this.columnId});
 
   ElevatorsResponse.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -40,8 +40,4 @@ class ElevatorsResponse {
     data['column_id'] = this.columnId;
     return data;
   }
-
-
 }
-
-

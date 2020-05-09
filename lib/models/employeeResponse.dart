@@ -8,20 +8,20 @@ class EmployeeResponse {
 
   EmployeeResponse(
       {this.id,
-        this.firstname,
-        this.lastname,
-        this.function,
-        this.email,
-        this.aiProfile});
+      this.firstname,
+      this.lastname,
+      this.function,
+      this.email,
+      this.aiProfile});
 
   factory EmployeeResponse.fromJson(Map<String, dynamic> json) {
     return new EmployeeResponse(
-    id: json['id'],
-    firstname: json['firstname'],
-    lastname: json['lastname'],
-    function: json['function'],
-    email: json['email'],
-    aiProfile: json['aiProfile'],
+      id: json['id'],
+      firstname: json['firstname'],
+      lastname: json['lastname'],
+      function: json['function'],
+      email: json['email'],
+      aiProfile: json['aiProfile'],
     );
   }
 
@@ -45,10 +45,8 @@ class EmployeesList {
   });
 
   factory EmployeesList.fromJson(List<dynamic> parsedJson) {
-
-    List<EmployeeResponse> employees = parsedJson.map((i)=>EmployeeResponse.fromJson(i)).toList();
-    return new EmployeesList(
-      employees: employees
-    );
+    List<EmployeeResponse> employees =
+        parsedJson.map((i) => EmployeeResponse.fromJson(i)).toList();
+    return new EmployeesList(employees: employees);
   }
 }

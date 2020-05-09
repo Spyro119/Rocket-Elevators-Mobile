@@ -10,17 +10,17 @@ bool isSignedin = false;
 
 // Fetching Employees from API and looking if user input matches
 // Employee's database model informations in order to access next pages.
-Future<bool> getinfos() async{
-  print('email : ' + email + ' password : ' + name  );
+Future<bool> getinfos() async {
+  print('email : ' + email + ' password : ' + name);
   dynamic employee = new EmployeesRepository();
   List<EmployeeResponse> Employees = await employee.fetchEmployees();
   int EmployeesLength = Employees.length;
-  for(var i = 0; i< EmployeesLength; i++){
-    if (email.toString() == Employees[i].email && name == Employees[i].firstname){
+  for (var i = 0; i < EmployeesLength; i++) {
+    if (email.toString() == Employees[i].email &&
+        name == Employees[i].firstname) {
       isSignedin = true;
       break;
-    }
-    else {
+    } else {
       isSignedin = false;
     }
   }
@@ -44,14 +44,12 @@ class MyApp extends StatelessWidget {
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
         primarySwatch: Colors.red,
-
       ),
       routes: routes,
       home: MyHomePage(title: 'Rocket Elevators mobile app'),
     );
   }
 }
-
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
@@ -66,6 +64,7 @@ class MyHomePage extends StatefulWidget {
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
+
 String email = " ";
 String name = "";
 
@@ -84,8 +83,7 @@ class _MyHomePageState extends State<MyHomePage> {
           contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
           hintText: "First name",
           border:
-          OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
-
+              OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
     );
 
     final emailField = TextField(
@@ -99,7 +97,7 @@ class _MyHomePageState extends State<MyHomePage> {
           contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
           hintText: "Email",
           border:
-          OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
+              OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
     );
 
     final loginButton = Material(
@@ -112,10 +110,9 @@ class _MyHomePageState extends State<MyHomePage> {
         padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
         onPressed: () async {
           await getinfos();
-          if(isSignedin == true) {
+          if (isSignedin == true) {
             Navigator.pushNamed(context, '/Elevators');
-          }
-          else{
+          } else {
             showAlertDialog(context);
           }
         },
@@ -127,7 +124,6 @@ class _MyHomePageState extends State<MyHomePage> {
     );
 
     return Scaffold(
-      
       appBar: AppBar(
         title: Text('Rocket elevator mobile app'),
       ),
@@ -138,7 +134,7 @@ class _MyHomePageState extends State<MyHomePage> {
             color: Colors.white,
             child: Padding(
               padding: const EdgeInsets.all(36.0),
-                child: Column(
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
@@ -169,6 +165,3 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
-
-
-

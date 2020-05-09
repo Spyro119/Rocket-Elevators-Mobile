@@ -8,7 +8,8 @@ import 'dart:async';
 // Base "url", make the API calls functions dynamic. Contains domain and
 // sub-domain url.
 class ApiProvider {
-  final String _baseUrl = "https://rocketelevatorsrestapisj.azurewebsites.net/api/";
+  final String _baseUrl =
+      "https://rocketelevatorsrestapisj.azurewebsites.net/api/";
 
   // Single function for all GET request with get('url'). "API pathing"
   Future<dynamic> get(String url) async {
@@ -23,10 +24,12 @@ class ApiProvider {
     return responseJson;
   }
 
-  Future<dynamic> put(String url, ElevatorsResponse elevators, Map<String, dynamic> headers, Map<String, dynamic> jsonStr  ) async{
+  Future<dynamic> put(String url, ElevatorsResponse elevators,
+      Map<String, dynamic> headers, Map<String, dynamic> jsonStr) async {
     var responseJson;
     try {
-      final response = await http.put(_baseUrl + url, headers: headers, body: json.encode(jsonStr));
+      final response = await http.put(_baseUrl + url,
+          headers: headers, body: json.encode(jsonStr));
       responseJson = _response(response);
     } on SocketException {
       throw FetchDataException('No Internet connection');

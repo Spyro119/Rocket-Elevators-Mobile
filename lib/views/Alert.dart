@@ -2,7 +2,6 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
 
 showAlertDialog(BuildContext context) {
-
   // set up the button
   Widget okButton = FlatButton(
     child: Text("OK"),

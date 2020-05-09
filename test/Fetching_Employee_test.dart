@@ -11,18 +11,22 @@ void main() {
         "lastname": "Carroll",
         "function": "Customer Government Manager",
         "email": "nenita@bartellcrooks.name",
-        "aiProfile": "c408b390-3947-46cb-8975-e41ffc14ad8a"};
+        "aiProfile": "c408b390-3947-46cb-8975-e41ffc14ad8a"
+      };
       f.toString();
       expect(EmployeeResponse.fromJson(f), isA<EmployeeResponse>());
       List F;
-      F = [{
-        "id": 1,
-        "firstname": "Eliseo",
-        "lastname": "Carroll",
-        "function": "Customer Government Manager",
-        "email": "nenita@bartellcrooks.name",
-        "aiProfile": "c408b390-3947-46cb-8975-e41ffc14ad8a"},
-        {"id": 2,
+      F = [
+        {
+          "id": 1,
+          "firstname": "Eliseo",
+          "lastname": "Carroll",
+          "function": "Customer Government Manager",
+          "email": "nenita@bartellcrooks.name",
+          "aiProfile": "c408b390-3947-46cb-8975-e41ffc14ad8a"
+        },
+        {
+          "id": 2,
           "firstname": "Alfonzo",
           "lastname": "Wisozk",
           "function": "Future Mining Developer",
@@ -37,7 +41,8 @@ void main() {
   });
   group('Testing model\'s creation', () {
     test('Should have access to Object\'s properties', () {
-      EmployeeResponse Employee = new EmployeeResponse(id: 2,
+      EmployeeResponse Employee = new EmployeeResponse(
+          id: 2,
           firstname: 'Samuel',
           lastname: 'Jubinville-Baril',
           function: 'ceo',
@@ -54,7 +59,8 @@ void main() {
         "lastname": "Carroll",
         "function": "Customer Government Manager",
         "email": "nenita@bartellcrooks.name",
-        "aiProfile": "c408b390-3947-46cb-8975-e41ffc14ad8a"};
+        "aiProfile": "c408b390-3947-46cb-8975-e41ffc14ad8a"
+      };
       f.toString();
       EmployeeResponse employee = EmployeeResponse.fromJson(f);
       expect(employee.firstname, "Eliseo");
@@ -63,14 +69,17 @@ void main() {
   group('Testing Json object properties', () {
     test('Should have access to the properties', () {
       List F;
-      F = [{
-        "id": 1,
-        "firstname": "Eliseo",
-        "lastname": "Carroll",
-        "function": "Customer Government Manager",
-        "email": "nenita@bartellcrooks.name",
-        "aiProfile": "c408b390-3947-46cb-8975-e41ffc14ad8a"},
-        {"id": 2,
+      F = [
+        {
+          "id": 1,
+          "firstname": "Eliseo",
+          "lastname": "Carroll",
+          "function": "Customer Government Manager",
+          "email": "nenita@bartellcrooks.name",
+          "aiProfile": "c408b390-3947-46cb-8975-e41ffc14ad8a"
+        },
+        {
+          "id": 2,
           "firstname": "Alfonzo",
           "lastname": "Wisozk",
           "function": "Future Mining Developer",
@@ -81,9 +90,10 @@ void main() {
       F.toString();
       List<EmployeeResponse> Employees;
 //    for(var f in response){
-      Employees = F.map<EmployeeResponse>((json) => EmployeeResponse.fromJson(json)).toList();
+      Employees = F
+          .map<EmployeeResponse>((json) => EmployeeResponse.fromJson(json))
+          .toList();
       expect(Employees[1].email, isA<String>());
-
     });
   });
 }
